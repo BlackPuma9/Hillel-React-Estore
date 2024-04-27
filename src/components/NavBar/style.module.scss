@@ -1,0 +1,7 @@
+@import "src/css/variable";
+
+.navigation {
+  &__bar {
+    background-color: $primary !important;
+  }
+}
