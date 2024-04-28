@@ -16,8 +16,11 @@ import { AddShoppingCart, FavoriteBorder } from "@mui/icons-material";
 import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setInitialSearchInputState } from "../../store/slices/searchInput";
-import Cookies from "js-cookie";
 import LoginIcon from "@mui/icons-material/Login";
+import {
+  hasAccessToken,
+  removeAccessToken,
+} from "../../utils/helpers/accessToken";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -97,7 +100,7 @@ const NavBar = () => {
 
   const logoutHandler = () => {
     handleMenuClose();
-    Cookies.remove("user_token");
+    removeAccessToken();
     navigate("/login");
   };
 
@@ -180,9 +183,7 @@ const NavBar = () => {
     </Menu>
   );
 
-  const userToken = Cookies.get("user_token");
-  const token = Boolean(userToken) ? userToken : "";
-
+  const hasToken = hasAccessToken();
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar className={styles.navigation__bar} position="static">
@@ -215,7 +216,7 @@ const NavBar = () => {
                 </Badge>
               </IconButton>
             </RouterLink>
-            {token.includes("eyJhbGciOiJIUzI1NiIsInR") ? (
+            {hasToken ? (
               <IconButton
                 size="large"
                 edge="end"

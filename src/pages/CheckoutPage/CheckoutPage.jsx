@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import CheckoutTemplate from "../../templates/CheckoutTemplate";
-import { Button, Chip, Divider, Grid, Skeleton, Stack } from "@mui/material";
+import { Button, Chip, Divider, Grid, Skeleton } from "@mui/material";
 import {
   useGetAllProductsQuery,
   useDeleteCartMutation,
@@ -15,6 +15,7 @@ import {
   getProductFromLocalStorageCart,
   setProductsToCart,
 } from "../../utils/helpers/cartLocalStorage";
+import CartProductItem from "./CartProductItem";
 
 const CheckoutPage = () => {
   const cartId = getCartIdFromLocalStorage();
@@ -32,7 +33,6 @@ const CheckoutPage = () => {
   };
 
   const deleteProductHandler = (id) => {
-    console.log(id);
     const updatedProducts = cartData.filter(
       (product) => product.productId !== id,
     );
@@ -61,71 +61,31 @@ const CheckoutPage = () => {
       </>
     );
 
-  const filteredProductsBasedCart = products.filter((product) =>
-    cartData.find((cartItem) => cartItem.productId === product.id),
-  );
-
-  const productsToRender = filteredProductsBasedCart.map((product) => {
+  const renderProduct = (product) => {
     return (
-      <Stack
-        direction="row"
-        spacing={1}
+      <CartProductItem
         key={product.id}
-        justifyContent="space-around"
-        sx={{ mb: 3, borderRadius: 4, borderColor: "red" }}
-      >
-        <img src={product.image} alt="product" width={100} height={100} />
-
-        <Typography variant="subtitle2" gutterBottom>
-          Product Id: {product.id}
-        </Typography>
-
-        <Typography variant="subtitle2" gutterBottom>
-          Price: {product.price}
-        </Typography>
-        {cartData.map((cartItem) => {
-          if (cartItem.productId === product.id) {
-            return (
-              <Box key={product.id}>
-                <Stack direction="row" spacing={1}>
-                  <Button
-                    onClick={() => updateQuantity(product.id, -1)}
-                    disabled={cartItem.quantity === 0}
-                    variant="contained"
-                    size="small"
-                    sx={{ minWidth: 32 }}
-                  >
-                    -
-                  </Button>
-                  <Typography variant="subtitle2" gutterBottom sx={{ pt: 0.5 }}>
-                    Quantity: {cartItem.quantity}
-                  </Typography>
-                  <Button
-                    onClick={() => updateQuantity(product.id, 1)}
-                    variant="contained"
-                    size="small"
-                    sx={{ minWidth: 32 }}
-                  >
-                    +
-                  </Button>
-                </Stack>
-              </Box>
-            );
-          }
-        })}
-        <Box component="div">
-          <Button
-            onClick={() => deleteProductHandler(product.id)}
-            sx={{ mb: 2 }}
-            variant="outlined"
-            startIcon={<DeleteIcon />}
-          >
-            Delete
-          </Button>
-        </Box>
-      </Stack>
+        id={product.id}
+        price={product.price}
+        image={product.image}
+        quantity={product.quantity}
+        updateQuantity={updateQuantity}
+        deleteProductHandler={deleteProductHandler}
+      />
     );
-  });
+  };
+
+  const cartProducts = products
+    .map((product) => {
+      const productFromCart = cartData.find(
+        (cartItem) => cartItem.productId === product.id,
+      );
+
+      return productFromCart
+        ? renderProduct({ ...product, quantity: productFromCart.quantity })
+        : null;
+    })
+    .filter(Boolean);
 
   return (
     <>
@@ -145,7 +105,7 @@ const CheckoutPage = () => {
               Delete All
             </Button>
             <Divider sx={{ mb: 3 }} />
-            {productsToRender}
+            {cartProducts}
           </Grid>
           <Grid item xs={12} md={4}>
             <Box

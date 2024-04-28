@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { API_BASE_URL } from "../../utils/API_CONFIG";
+import { getAccessTokenFromCookies } from "../../utils/helpers/accessToken";
 
 export const api = createApi({
   reducerPath: "api",
@@ -69,6 +70,16 @@ export const api = createApi({
         body: { username, password },
       }),
     }),
+
+    getUserById: build.query({
+      query: (userId = 1) => ({
+        url: `users/${userId}`,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getAccessTokenFromCookies()}`,
+        },
+      }),
+    }),
   }),
 });
 
@@ -82,4 +93,5 @@ export const {
   useGetCartByIdQuery,
   useDeleteCartMutation,
   useLoginMutation,
+  useGetUserByIdQuery,
 } = api;

@@ -84,10 +84,6 @@ const Footer = () => {
         <Grid container spacing={2}>
           <Grid container item xs={12} sm={6} md={3}>
             <Stack direction="row" alignItems="center" spacing={2}>
-              <img
-                src="https://scdn.comfy.ua/89fc351a-22e7-41ee-8321-f8a9356ca351/https://skin.comfy.ua/media/blb/footer/qr-code.svg/f_auto"
-                alt="qcode"
-              />
               <Typography
                 variant="subtitle2"
                 className={styles.footer__link}

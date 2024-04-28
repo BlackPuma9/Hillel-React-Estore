@@ -3,11 +3,11 @@ import routesArray from "./routesMapping";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { setInitialState } from "../store/slices/cart";
+import { getProductFromLocalStorageCart } from "../utils/helpers/cartLocalStorage";
 
 const RoutesMapping = () => {
-  const [routes, setRoutes] = useState(null);
-  const localCart = localStorage.getItem("cart");
-  const cartData = localCart === null ? [] : JSON.parse(localCart);
+  const [routes, setRoutes] = useState([]);
+  const cartData = getProductFromLocalStorageCart();
 
   const productQuantity = cartData.reduce((acc, cur) => acc + cur.quantity, 0);
   const dispatch = useDispatch();
@@ -21,21 +21,7 @@ const RoutesMapping = () => {
     );
   }, []);
 
-  return (
-    <Routes>
-      {routes && routes}
-      {/*{routes !== null ? routes : null}*/}
-
-      {/*<Route path="/" element={<HomePage />} />*/}
-
-      {/*<Route path="todos" element={<TodosPage />} />*/}
-
-      {/*<Route*/}
-      {/*    path="*"*/}
-      {/*    element={<PageNotFound />}*/}
-      {/*/>*/}
-    </Routes>
-  );
+  return <Routes>{routes && routes}</Routes>;
 };
 
 export default RoutesMapping;

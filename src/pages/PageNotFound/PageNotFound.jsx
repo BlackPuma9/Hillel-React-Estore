@@ -14,7 +14,7 @@ const PageNotFound = () => {
     return () => {
       clearTimeout(timeoutId);
     };
-  }, []);
+  });
   return (
     <Box
       sx={{ mt: 15 }}

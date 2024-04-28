@@ -5,8 +5,8 @@ import Box from "@mui/material/Box";
 import { Button, Stack, TextField } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import { useLoginMutation } from "../../store/api";
-import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
+import { setAccessToken } from "../../utils/helpers/accessToken";
 
 const defaultFormState = {
   email: "",
@@ -15,10 +15,6 @@ const defaultFormState = {
 
 const LoginPage = () => {
   const navigate = useNavigate();
-
-  // get token from cookies
-  const userToken = Cookies.get("user_token");
-  console.log(userToken);
 
   const [login] = useLoginMutation();
 
@@ -31,18 +27,10 @@ const LoginPage = () => {
 
       if (response?.error) {
         console.error(response);
+        return;
       }
-
-      if (response.data.token.includes("eyJhbGciOiJIUzI1NiIsInR")) {
-        Cookies.set("user_token", `${response.data.token}`, {
-          expires: 1,
-          path: "/",
-        });
-        navigate("/");
-      }
-
-      // set token to cookies
-      // redirect user to home page
+      setAccessToken(response.data.token);
+      navigate("/");
     },
   });
 

@@ -6,7 +6,7 @@ import CategoryPage from "./CategoryPage/CategoryPage";
 import LoginPage from "./LoginPage";
 import MyProfilePage from "./MyProfilePage";
 
-export default [
+const routes = [
   {
     path: "/",
     component: HomePage,
@@ -40,3 +40,5 @@ export default [
     component: MyProfilePage,
   },
 ];
+
+export default routes;

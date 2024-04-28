@@ -3,7 +3,7 @@ import BaseTemplate from "../../templates/BasicTemplate";
 import { Chip, Divider, Grid, Paper, Stack } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import SideMenu from "../../components/Menu";
-import Carousel from "../../components/Slider";
+import Slider from "../../components/Slider";
 import ProductList from "../../components/ProductList";
 import { useGetAllProductsQuery, useGetCategoriesQuery } from "../../store/api";
 import { useSelector } from "react-redux";
@@ -40,10 +40,7 @@ const HomePage = () => {
                 ? "You have some item in your bucket. Check it out!"
                 : "No products in the cart bin. Feel free to add!"}
             </Item>
-            <Carousel
-              products={products}
-              isProductsLoading={isProductsLoading}
-            />
+            <Slider products={products} isProductsLoading={isProductsLoading} />
           </Stack>
         </Grid>
       </Grid>
