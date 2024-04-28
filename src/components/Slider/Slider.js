@@ -1,8 +1,15 @@
 import React from "react";
-import Carousel from "react-material-ui-carousel";
-import { Paper, Button, Skeleton, Grid } from "@mui/material";
-import Box from "@mui/material/Box";
+import { Skeleton } from "@mui/material";
+import { Navigation, Pagination, Scrollbar, A11y } from "swiper/modules";
 import { Link } from "react-router-dom";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
+import "swiper/css/scrollbar";
+import Typography from "@mui/material/Typography";
 
 const Slider = ({ products, isProductsLoading }) => {
   if (isProductsLoading)
@@ -15,52 +22,34 @@ const Slider = ({ products, isProductsLoading }) => {
     );
 
   return (
-    <Carousel>
-      {products.map((product) => (
-        <Item key={product.id} product={product} />
-      ))}
-    </Carousel>
-  );
-};
-
-const Item = ({ product }) => {
-  const { image, title, id } = product;
-
-  return (
-    <Paper>
-      <Box
-        sx={{
-          display: "flex",
-          justifyContent: "center",
-          flexDirection: "column",
-          alignItems: "center",
-        }}
-      >
-        <Grid
-          container
-          direction="row"
-          alignItems="center"
-          spacing={2}
-          sx={{ pl: 4 }}
-        >
-          <Grid item xs={6}>
+    <Swiper
+      modules={[Navigation, Pagination, Scrollbar, A11y]}
+      spaceBetween={50}
+      slidesPerView={3}
+      navigation
+      pagination={{ clickable: true }}
+      scrollbar={{ draggable: true }}
+      onSwiper={(swiper) => console.log(swiper)}
+      onSlideChange={() => console.log("slide change")}
+    >
+      {products.map((product) => {
+        return (
+          <SwiperSlide key={product.id}>
             <img
-              srcSet={`${image}?w=242&h=121&fit=crop&auto=format&dpr=2 2x`}
-              src={`${image}?w=242&h=121&fit=crop&auto=format`}
-              height={250}
-              alt={title}
+              src={`${product.image}`}
+              width={200}
+              height={190}
+              alt={product.title}
             />
-          </Grid>
-          <Grid item xs={6}>
-            <h2>{title}</h2>
-
-            <Link to={`/product/${id}`}>
-              <Button className="CheckButton">Check it out!</Button>
+            <Link to={`/product/${product.id}`}>
+              <Typography variant="body2" component="div">
+                {product.title}
+              </Typography>
             </Link>
-          </Grid>
-        </Grid>
-      </Box>
-    </Paper>
+          </SwiperSlide>
+        );
+      })}
+    </Swiper>
   );
 };
 

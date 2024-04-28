@@ -3,6 +3,7 @@ import PageNotFound from "./PageNotFound";
 import CheckoutPage from "./CheckoutPage";
 import ProductPage from "./ProductPage";
 import CategoryPage from "./CategoryPage/CategoryPage";
+import LoginPage from "./LoginPage";
 
 export default [
   {
@@ -28,5 +29,9 @@ export default [
   {
     path: "*",
     component: PageNotFound,
+  },
+  {
+    path: "login",
+    component: LoginPage,
   },
 ];

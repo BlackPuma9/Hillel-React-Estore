@@ -61,6 +61,14 @@ export const api = createApi({
         };
       },
     }),
+
+    login: build.mutation({
+      query: ({ username, password }) => ({
+        url: "auth/login",
+        method: "POST",
+        body: { username, password },
+      }),
+    }),
   }),
 });
 
@@ -73,4 +81,5 @@ export const {
   useUpdateCartProductsMutation,
   useGetCartByIdQuery,
   useDeleteCartMutation,
+  useLoginMutation,
 } = api;
