@@ -8,7 +8,7 @@ Reference Store: https://comfy.ua/
 
 
 ```bash
-npm install --forces
+npm install
 ```
 **To login into account use next credentials:** 
 - username: **mor_2314**,
