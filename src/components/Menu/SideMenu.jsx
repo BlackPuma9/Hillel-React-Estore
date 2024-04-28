@@ -39,7 +39,7 @@ const SideMenu = ({ categories, isLoading }) => {
             <ListItemIcon>
               <CategoryIcon />
             </ListItemIcon>
-            <ListItemText sx={{ color: "#616161" }} primary={category} />
+            <ListItemText sx={{ color: "#212121" }} primary={category} />
           </ListItemButton>
         </Link>
       ))}

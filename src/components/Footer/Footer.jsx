@@ -124,7 +124,6 @@ const Footer = () => {
                     sx={{
                       background: "#43b02a",
                     }}
-                    type="submit"
                     endIcon={<SendIcon />}
                   >
                     Send

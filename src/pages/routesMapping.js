@@ -4,6 +4,7 @@ import CheckoutPage from "./CheckoutPage";
 import ProductPage from "./ProductPage";
 import CategoryPage from "./CategoryPage/CategoryPage";
 import LoginPage from "./LoginPage";
+import MyProfilePage from "./MyProfilePage";
 
 export default [
   {
@@ -33,5 +34,9 @@ export default [
   {
     path: "login",
     component: LoginPage,
+  },
+  {
+    path: "profile",
+    component: MyProfilePage,
   },
 ];

@@ -17,7 +17,6 @@ import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setInitialSearchInputState } from "../../store/slices/searchInput";
 import Cookies from "js-cookie";
-import { Button } from "@mui/material";
 import LoginIcon from "@mui/icons-material/Login";
 
 const Search = styled("div")(({ theme }) => ({
@@ -102,6 +101,11 @@ const NavBar = () => {
     navigate("/login");
   };
 
+  const profileHandler = () => {
+    handleMenuClose();
+    navigate("/profile");
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -119,7 +123,7 @@ const NavBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>My Profile</MenuItem>
+      <MenuItem onClick={profileHandler}>My Profile</MenuItem>
       <MenuItem onClick={logoutHandler}>Log out</MenuItem>
     </Menu>
   );
@@ -224,13 +228,15 @@ const NavBar = () => {
                 <AccountCircle />
               </IconButton>
             ) : (
-              <Button
-                variant="contained"
-                startIcon={<LoginIcon />}
+              <IconButton
+                sx={{ ml: 3 }}
+                variant="outlined"
+                size="large"
+                color="inherit"
                 onClick={() => navigate("/login")}
               >
-                Log in
-              </Button>
+                <LoginIcon />
+              </IconButton>
             )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>

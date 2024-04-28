@@ -32,7 +32,7 @@ const CheckoutPage = () => {
   };
 
   const deleteProductHandler = (id) => {
-    console.log(id)
+    console.log(id);
     const updatedProducts = cartData.filter(
       (product) => product.productId !== id,
     );
@@ -147,10 +147,21 @@ const CheckoutPage = () => {
             <Divider sx={{ mb: 3 }} />
             {productsToRender}
           </Grid>
-          <Grid item xs={12} md={4} bgcolor={"lightsalmon"}>
-            <Button variant="contained" color="success">
-              Buy products
-            </Button>
+          <Grid item xs={12} md={4}>
+            <Box
+              sx={{ mt: 25 }}
+              display="flex"
+              flexDirection="column"
+              justifyContent="center"
+              alignContent="center"
+            >
+              <Typography variant="subtitle2" gutterBottom>
+                Here should be payment block
+              </Typography>
+              <Button variant="contained" color="success">
+                Order Now!
+              </Button>
+            </Box>
           </Grid>
         </Grid>
       </CheckoutTemplate>
