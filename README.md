@@ -1,14 +1,18 @@
 # Final project
 
-API - https://fakestoreapi.com/docs
+API: https://fakestoreapi.com/docs
 
-UI Framework - https://mui.com/material-ui/getting-started/
+MUI Framework: https://mui.com/material-ui/getting-started/
 
-Reference Store - https://comfy.ua/
+Reference Store: https://comfy.ua/
+
 
 ```bash
 npm install --forces
 ```
+**To login into account use next credentials:** 
+- username: **mor_2314**,
+- password: **83r5^_**
 ____________________________________________
 
 

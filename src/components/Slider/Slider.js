@@ -41,8 +41,11 @@ const Slider = ({ products, isProductsLoading }) => {
               height={190}
               alt={product.title}
             />
-            <Link to={`/product/${product.id}`}>
-              <Typography variant="body2" component="div">
+            <Link
+              to={`/product/${product.id}`}
+              style={{ textDecoration: "none", color: "black" }}
+            >
+              <Typography sx={{ mb: 3 }} variant="body2" component="div">
                 {product.title}
               </Typography>
             </Link>

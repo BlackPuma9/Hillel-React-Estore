@@ -13,9 +13,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import AccountCircle from "@mui/icons-material/AccountCircle";
 import MoreIcon from "@mui/icons-material/MoreVert";
 import { AddShoppingCart, FavoriteBorder } from "@mui/icons-material";
-import { Link as RouterLink } from "react-router-dom";
+import { Link as RouterLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setInitialSearchInputState } from "../../store/slices/searchInput";
+import Cookies from "js-cookie";
+import { Button } from "@mui/material";
+import LoginIcon from "@mui/icons-material/Login";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -91,6 +94,14 @@ const NavBar = () => {
     setMobileMoreAnchorEl(event.currentTarget);
   };
 
+  const navigate = useNavigate();
+
+  const logoutHandler = () => {
+    handleMenuClose();
+    Cookies.remove("user_token");
+    navigate("/login");
+  };
+
   const menuId = "primary-search-account-menu";
   const renderMenu = (
     <Menu
@@ -108,8 +119,8 @@ const NavBar = () => {
       open={isMenuOpen}
       onClose={handleMenuClose}
     >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>My Profile</MenuItem>
+      <MenuItem onClick={logoutHandler}>Log out</MenuItem>
     </Menu>
   );
 
@@ -165,6 +176,9 @@ const NavBar = () => {
     </Menu>
   );
 
+  const userToken = Cookies.get("user_token");
+  const token = Boolean(userToken) ? userToken : "";
+
   return (
     <Box sx={{ flexGrow: 1 }}>
       <AppBar className={styles.navigation__bar} position="static">
@@ -197,18 +211,27 @@ const NavBar = () => {
                 </Badge>
               </IconButton>
             </RouterLink>
-
-            <IconButton
-              size="large"
-              edge="end"
-              aria-label="account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
+            {token.includes("eyJhbGciOiJIUzI1NiIsInR") ? (
+              <IconButton
+                size="large"
+                edge="end"
+                aria-label="account of current user"
+                aria-controls={menuId}
+                aria-haspopup="true"
+                onClick={handleProfileMenuOpen}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+            ) : (
+              <Button
+                variant="contained"
+                startIcon={<LoginIcon />}
+                onClick={() => navigate("/login")}
+              >
+                Log in
+              </Button>
+            )}
           </Box>
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
             <IconButton
